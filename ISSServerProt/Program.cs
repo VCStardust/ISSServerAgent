@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using CoreRCON;
 using Fclp;
@@ -53,6 +54,8 @@ namespace IssServerProt
                 Console.WriteLine("======Starting Server======");
                 server.Start();
                 server.BeginOutputReadLine();
+                Thread.Sleep(45000);
+                rcon.ConnectAsync();
             }
             server.Exited += async (sender, args) =>
             {
@@ -67,7 +70,7 @@ namespace IssServerProt
                     ErrorOccured = false;
                 });
             };
-            server.OutputDataReceived += async(sender, args) =>
+            server.OutputDataReceived += (sender, args) =>
             {
                 var line = args.Data;
                 Console.WriteLine(line);
@@ -76,10 +79,9 @@ namespace IssServerProt
                     case "LogGameMode: Display: State: GameStarting -> PreRound":
                         Console.WriteLine("======Round Start Detected======");
                         int n = 1;
-                        await rcon.ConnectAsync();
                         while (n <= CmdLength)
                         {
-                            await rcon.SendCommandAsync(CommandE.GetValue(n-1).ToString());
+                            rcon.SendCommandAsync(CommandE.GetValue(n-1).ToString());
                             n++;
                         }
                         Console.WriteLine($"{serverName} Server Modified");
