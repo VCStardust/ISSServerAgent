@@ -6,6 +6,12 @@ To give Insurgency:Sandstorm Server Some Commands When It Starts a Round to Over
 当回合开始时给叛乱：沙漠风暴服务端一些指令来覆盖被游戏模式所设定的配置
 
 
+# ATTENTION
+.NET Core 3.1 is required to run this program.
+要运行该程序需要.NET Core 3.1.
+https://dotnet.microsoft.com/download/dotnet-core/3.1
+
+
 # How to use
 1. Create two txt files and a cmd file. (Example: *a*.txt, *b*.txt and *c*.cmd)
 2. Writing your server config in *a*.txt. (Example content as "*`Precinct?Scenario=Scenario_Precinct_Checkpoint_Security?MaxPlayers=8 -Port=37102 -QueryPort=37131 -AdminList=Admins -MapCycle=Mapcycle -hostname="yourname"`*", you should remove the outside "", but DO NOT REMOVE which follows "`-hostname=`".)
