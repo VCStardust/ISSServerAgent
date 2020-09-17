@@ -1,9 +1,9 @@
-# ISSServerProtecter
+# ISSServerAgent
 ISS服务器托管
 
-To give Insurgency:Sandstorm Server Some Commands When It Starts a Round to Override the Config Set by the Gamemode.
+To give Insurgency:Sandstorm Server Some Commands When It Starts a Round to Override the Config Set by the Ruleset.
 
-当回合开始时给叛乱：沙漠风暴服务端一些指令来覆盖被游戏模式所设定的配置
+当回合开始时给叛乱：沙漠风暴服务端一些指令来覆盖被规则集所设定的配置
 
 
 
@@ -41,4 +41,4 @@ https://dotnet.microsoft.com/download/dotnet-core/3.1
 
 5. 依照以下示例编写 *c*.cmd ： "`ISSServerProt.exe --argsFile `*`a`*`.txt --rconPort `*`port`*` --rconPassword `*`password`*` --name `*`Normal`*` --CommandFile `*`b`*`.txt`" 。
 
-6. 运行*c*.cmd，你应该在服务器启动45秒后再加入。但如果它启动的很慢，以至于程序的连接请求在服务端能接受之间就被发送，指令将不会被正确执行。
+6. 运行*c*.cmd，你应该在服务器启动45秒后再加入。但如果它启动的很慢，以至于程序的连接请求在服务端能接受之前就被发送，指令将不会被正确执行。
