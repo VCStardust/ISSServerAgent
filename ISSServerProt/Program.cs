@@ -26,7 +26,7 @@ namespace IssServerProt
             parser.Setup<string>("rconPassword").Required().Callback(it => rconPassword = it);
             parser.Parse(args);
 
-            string startArgs = ConfigE.First;
+            string startArgs = (string)ConfigE.GetValue(0);
 
             var CmdLength = ConfigE.Length -1;
 
@@ -41,8 +41,7 @@ namespace IssServerProt
                     UseShellExecute = false,
                     FileName =
                         "Insurgency\\Binaries\\Win64\\InsurgencyServer-Win64-Shipping.exe",
-                    Arguments =
-                        startArgs,
+                    Arguments = startArgs,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true
                 },
