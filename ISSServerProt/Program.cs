@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,20 +14,21 @@ namespace IssServerProt
         private static bool ErrorOccured;
         public static void Main(string[] args)
         {
+            string startArgs = default;
             ushort rconPort = default;
             string serverName = default;
             string rconPassword = default;
-            string AllConfig = File.ReadAllText("Config.txt");
-            var ConfigE = AllConfig.Split(Environment.NewLine);
+            string Command= default;
             var parser = new FluentCommandLineParser();
+            parser.Setup<string>("argsFile").Required().Callback(it => startArgs = File.ReadAllText(it));
             parser.Setup<int>("rconPort").Required().Callback(it => rconPort = (ushort)it);
             parser.Setup<string>("name").Callback(it => serverName = it);
             parser.Setup<string>("rconPassword").Required().Callback(it => rconPassword = it);
+            parser.Setup<string>("CommandFile").Required().Callback(it => Command = File.ReadAllText(it));
             parser.Parse(args);
 
-            string startArgs = (string)ConfigE.GetValue(0);
-
-            var CmdLength = ConfigE.Length -1;
+            var CommandE = Command.Split(Environment.NewLine);
+            var CmdLength = CommandE.Length;
 
             Console.Title = $"ISS {serverName} Server";
 
@@ -41,7 +41,8 @@ namespace IssServerProt
                     UseShellExecute = false,
                     FileName =
                         "Insurgency\\Binaries\\Win64\\InsurgencyServer-Win64-Shipping.exe",
-                    Arguments = startArgs,
+                    Arguments =
+                        startArgs,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true
                 },
@@ -80,7 +81,7 @@ namespace IssServerProt
                         int n = 1;
                         while (n <= CmdLength)
                         {
-                            rcon.SendCommandAsync(ConfigE.GetValue(n).ToString());
+                            rcon.SendCommandAsync(CommandE.GetValue(n-1).ToString());
                             n++;
                         }
                         Console.WriteLine($"{serverName} Server Modified");
